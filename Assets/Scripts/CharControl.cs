@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CharControl : MonoBehaviour {
 
@@ -24,6 +25,16 @@ public class CharControl : MonoBehaviour {
 		//Player can use the mouse to turn left or right 
 		transform.Rotate(0f, MouseX * cameraSpeed * Time.deltaTime, 0f); 
 
+	}
+		
 
+	IEnumerator Sleep () {
+
+		yield return new WaitForSeconds(0.6f);
+
+		// Fade out the game and load a new level 
+		float fadeTime = GameObject.Find("GameManager").GetComponent<GameManager>().Beginfade(1);
+		yield return new WaitForSeconds (fadeTime);
+		SceneManager.LoadScene ("Dream");
 	}
 }
