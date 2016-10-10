@@ -39,7 +39,7 @@ public class CharControl : MonoBehaviour {
 		// Fade out the game and load a new level 
 		float fadeTime = GameObject.Find("GameManager").GetComponent<GameManager>().Beginfade(1);
 		yield return new WaitForSeconds (fadeTime);
-		SceneManager.LoadScene ("Dream");
+		SceneManager.LoadScene (1);
 		}
 	}
 }
