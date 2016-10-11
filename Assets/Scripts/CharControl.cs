@@ -24,22 +24,9 @@ public class CharControl : MonoBehaviour {
 		//float MouseY = Input.GetAxis ("Mouse Y"); // Look up or down 
 
 		//Player can use the mouse to turn left or right 
-		transform.Rotate(0f, MouseX * cameraSpeed * Time.deltaTime, 0f); 
+		transform.Rotate (0f, MouseX * cameraSpeed * Time.deltaTime, 0f); 
 
 
 
-	}
-		
-
-	IEnumerator Sleep () {
-
-		yield return new WaitForSeconds(0.6f);
-
-		if (Input.GetKeyDown(KeyCode.Space)){
-		// Fade out the game and load a new level 
-		float fadeTime = GameObject.Find("GameManager").GetComponent<GameManager>().Beginfade(1);
-		yield return new WaitForSeconds (fadeTime);
-		SceneManager.LoadScene (1);
-		}
 	}
 }
