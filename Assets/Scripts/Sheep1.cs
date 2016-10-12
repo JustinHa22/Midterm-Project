@@ -7,6 +7,8 @@ public class Sheep1 : MonoBehaviour {
 	public float Spring;
 	public Rigidbody rb;
 
+	private bool jumped = false; 
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -14,7 +16,9 @@ public class Sheep1 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		rb.AddForce(new Vector2(-sheepSpeed * Time.deltaTime, 0f), ForceMode.Impulse);
+		if (jumped == false){
+			rb.AddForce(new Vector2(-sheepSpeed * Time.deltaTime, 0f), ForceMode.Impulse);
+		}
 
 		if (transform.position.x < -20) {
 			Destroy (gameObject);
@@ -23,7 +27,8 @@ public class Sheep1 : MonoBehaviour {
 
 	void OnTriggerStay(Collider col){
 		if (col.gameObject.tag == "Spring" && Input.GetKeyDown (KeyCode.Space)){
-				rb.AddForce (new Vector2 (0f, Spring * Time.deltaTime), ForceMode.Impulse);
+			jumped = true;
+			rb.AddForce (new Vector2 (0f, Spring * Time.deltaTime), ForceMode.Impulse);
 		}
 	}
 }
