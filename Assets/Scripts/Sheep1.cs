@@ -5,6 +5,9 @@ public class Sheep1 : MonoBehaviour {
 
 	public float sheepSpeed; 
 	public float Spring;
+	public float fallSpeedVertical; 
+	public float fallSpeedHorizontal;
+
 	public Rigidbody rb;
 
 	private bool jumped = false; 
@@ -13,11 +16,15 @@ public class Sheep1 : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (jumped == false){
 			rb.AddForce(new Vector2(-sheepSpeed * Time.deltaTime, 0f), ForceMode.Impulse);
+		}
+
+		if (transform.position.x < -7 && jumped == true) {
+			rb.AddForce (new Vector2 (-fallSpeedHorizontal, fallSpeedVertical), ForceMode.Impulse);
 		}
 
 		if (transform.position.x < -20) {
