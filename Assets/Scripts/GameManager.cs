@@ -1,27 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
 	public Texture fadeOutTexture; // This texture will overlay the screen
 	public float fadeOutSpeed; // The fading speed 
 
-	private bool isFading = false;
+	private bool fallingAsleep = false;
+	static bool enteringDream; 
 
 	private int drawDepth = -1000; // The texture's order in the draw hierarchy: a low number means it renders on top 
 	private float alpha = 0f; // The texture's alpha value between 0 and 1 
-	private int fadeDirection = 1; // The direction to fade: -1 = fade in and 1 = fade out
+	public int fadeDirection; // The direction to fade: -1 = fade in and 1 = fade out
+
+	private int fadeBuffer = 0; 
+
+	static int sceneChange = 0; 
 
 	void OnGUI (){
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			isFading = true;
+			fallingAsleep = true;
 		}
-		if (isFading) {
+		if (fallingAsleep ) {
 			// Fade out/in the alpha value using a direction, a speed and Time.deltaTimeto convert the operation to seconds
 			alpha += fadeDirection * fadeOutSpeed * Time.deltaTime; 
 			// Force (clamp) the number between 0 and 1 because GUI.color uses alpha values between 0 and 1
 			alpha = Mathf.Clamp01 (alpha);
+
+			fadeBuffer += 1; 
+			if (fadeBuffer == 250) {
+				enteringDream = true;
+				SceneManager.LoadScene (1);
+
+				sceneChange += 1; 
+				fadeBuffer = 0; 
+			}
+
 		}
+
+		if (sceneChange % 2 == 1) {
+			if (enteringDream) {
+				alpha = 1;
+				enteringDream = false;
+			}
+
+			Debug.Log (alpha + " " + fadeDirection);
+
+			// Fade out/in the alpha value using a direction, a speed and Time.deltaTimeto convert the operation to seconds
+			alpha += fadeDirection * fadeOutSpeed * Time.deltaTime; 
+			// Force (clamp) the number between 0 and 1 because GUI.color uses alpha values between 0 and 1
+			alpha = Mathf.Clamp01 (alpha);
+
+			fadeBuffer += 1; 
+		}
+
 			// Set color of our GUI (in this case our texture). All color values remain the same & the Alpha is set to the alpha variable
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, alpha);	//set the alpha value
 			GUI.depth = drawDepth; 													//make the black texture render on the top (drawn last)
