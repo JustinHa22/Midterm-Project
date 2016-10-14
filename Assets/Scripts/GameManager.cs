@@ -31,10 +31,12 @@ public class GameManager : MonoBehaviour {
 			fadeBuffer += 1; 
 			if (fadeBuffer == 250) {
 				enteringDream = true;
-				SceneManager.LoadScene (1);
-
 				sceneChange += 1; 
 				fadeBuffer = 0; 
+				SceneManager.LoadScene (1);
+
+//				sceneChange += 1; 
+//				fadeBuffer = 0; 
 			}
 
 		}
