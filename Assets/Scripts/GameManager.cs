@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour {
 			enteringDream = false; 
 		}
 
-		alarmClock.text = (hour + " : " + firstMinutes + secondMinutes); 
+		alarmClock.text = (hour + ":" + firstMinutes + secondMinutes + " AM"); 
 
 			// Set color of our GUI (in this case our texture). All color values remain the same & the Alpha is set to the alpha variable
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, alpha);	//set the alpha value
