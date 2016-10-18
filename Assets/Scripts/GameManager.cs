@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour {
 			
 		if (FenceHit == true) {
 			SceneManager.LoadScene (0);
+			FenceHit = false; 
 		}
 
 			// Set color of our GUI (in this case our texture). All color values remain the same & the Alpha is set to the alpha variable

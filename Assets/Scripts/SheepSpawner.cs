@@ -11,9 +11,10 @@ public class SheepSpawner : MonoBehaviour {
 	int restartBuffer = 100; 
 	int sheepCount = 0;
 
+	public Vector2 sheepPosition; 
 	// Use this for initialization
 	void Start () {
-	
+		sheepPosition = new Vector2(transform.position.x, (transform.position.y - .47f));
 	}
 	
 	// Update is called once per frame
@@ -23,7 +24,7 @@ public class SheepSpawner : MonoBehaviour {
 		bufferTime += 1;
 
 		if (bufferTime == restartBuffer) {
-			Instantiate (Sheep [randomSheep], transform.position, Quaternion.identity);
+			Instantiate (Sheep [randomSheep], sheepPosition, Quaternion.Euler (0, 270, 0));
 			bufferTime = 0;
 			sheepCount += 1; 
 		}
