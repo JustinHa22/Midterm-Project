@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour {
 			alpha = Mathf.Clamp01 (alpha);
 
 			fadeBuffer += 1; 
-			enteringDream = false;
+			//enteringDream = false;
 		}
 			
 
