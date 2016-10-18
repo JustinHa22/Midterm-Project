@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
 	public Texture fadeOutTexture; // This texture will overlay the screen
 	public float fadeOutSpeed; // The fading speed 
+
+	public Text alarmClock; 
+	static int hour = 2; 
+	static int firstMinutes = 0; 
+	static int secondMinutes = 0; 
+	static int framestoMinutes; 
+	static bool startClock = false; 
 
 	private bool fallingAsleep = false;
 	private bool sleepTime = false; 
@@ -34,7 +42,10 @@ public class GameManager : MonoBehaviour {
 		if (sceneName == "Dream Scene") {
 			enteringDream = true;
 		}
+	}
 
+	void Awake(){
+		Application.targetFrameRate = 60; 
 	}
 
 	void OnGUI (){
@@ -68,15 +79,31 @@ public class GameManager : MonoBehaviour {
 			// Force (clamp) the number between 0 and 1 because GUI.color uses alpha values between 0 and 1
 			alpha = Mathf.Clamp01 (alpha);
 
-			fadeBuffer += 1; 
-			//enteringDream = false;
-			Debug.Log(fadeBuffer);
+			startClock = true; 
+		}
+
+		if (startClock == true) {
+			framestoMinutes += 1;
+			if (framestoMinutes % 60 == 0) {
+				secondMinutes += 1;
+			}
+			if (secondMinutes > 9) {
+				firstMinutes += 1; 
+				secondMinutes = 0; 
+			}
+			if (firstMinutes > 5) {
+				hour += 1; 
+				firstMinutes = 0; 
+			}
 		}
 			
 		if (FenceHit == true) {
 			SceneManager.LoadScene (0);
 			FenceHit = false; 
+			startClock = false; 
 		}
+
+		alarmClock.text = (hour + " : " + firstMinutes + secondMinutes); 
 
 			// Set color of our GUI (in this case our texture). All color values remain the same & the Alpha is set to the alpha variable
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, alpha);	//set the alpha value
