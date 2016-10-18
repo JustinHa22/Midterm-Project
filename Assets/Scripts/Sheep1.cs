@@ -33,9 +33,15 @@ public class Sheep1 : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider col){
+		
 		if (col.gameObject.tag == "Spring" && Input.GetKeyDown (KeyCode.Space)){
 			jumped = true;
 			rb.AddForce (new Vector2 (0f, Spring * Time.deltaTime), ForceMode.Impulse);
 		}
+
+		if (col.gameObject.tag == "Fence") {
+			GameManager.FenceHit = true; 
+		}
 	}
+
 }

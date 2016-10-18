@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 
 	private int fadeBuffer = 0; 
 
+	public static bool FenceHit = false; 
 
 	void Start(){
 		Scene currentScene = SceneManager.GetActiveScene ();
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour {
 			
 
 		if (enteringDream == true) {
+			Debug.Log ("works");
 			// Fade out/in the alpha value using a direction, a speed and Time.deltaTimeto convert the operation to seconds
 			alpha += fadeDirection * fadeOutSpeed * Time.deltaTime; 
 			// Force (clamp) the number between 0 and 1 because GUI.color uses alpha values between 0 and 1
@@ -68,15 +70,12 @@ public class GameManager : MonoBehaviour {
 
 			fadeBuffer += 1; 
 			//enteringDream = false;
+			Debug.Log(fadeBuffer);
 		}
 			
-
-//			// Fade out/in the alpha value using a direction, a speed and Time.deltaTimeto convert the operation to seconds
-//			alpha += fadeDirection * fadeOutSpeed * Time.deltaTime; 
-//			// Force (clamp) the number between 0 and 1 because GUI.color uses alpha values between 0 and 1
-//			alpha = Mathf.Clamp01 (alpha);
-//
-//			fadeBuffer += 1; 
+		if (FenceHit == true) {
+			SceneManager.LoadScene (0);
+		}
 
 			// Set color of our GUI (in this case our texture). All color values remain the same & the Alpha is set to the alpha variable
 			GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, alpha);	//set the alpha value
@@ -85,15 +84,5 @@ public class GameManager : MonoBehaviour {
 		
 	}
 		
-	// Sets fadeDirection to the direction parameter making the scene fade in if -1 and out if 1
-	public float Beginfade (int direction){
-		fadeDirection = direction;
-		return (fadeOutSpeed);			// Return the fadeOutSpeed variable so it's easy to time the Application.Loadlevel();
-	}
-
-	// OnLevelWasLoaded is called when a level is loaded. It takes loaded level index (int) as a parameter so you can limit the fade in to certain scenes 
-	void OnLevelWasLoaded(){
-		// alpha = 1; 		//Use this if the alpha is not set to 1 in default
-		Beginfade(-1);		// Call the fade in function 
-	}
+		
 }

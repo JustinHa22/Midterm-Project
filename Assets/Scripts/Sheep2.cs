@@ -38,5 +38,9 @@ public class Sheep2 : MonoBehaviour {
 			jumped = true; 
 			rb.AddForce (new Vector2 (0f, Spring * Time.deltaTime), ForceMode.Impulse);
 		}
+
+		if (col.gameObject.tag == "Fence") {
+			GameManager.FenceHit = true; 
+		}
 	}
 }
