@@ -23,7 +23,7 @@ public class Sheep1 : MonoBehaviour {
 			rb.AddForce(new Vector2(-sheepSpeed * Time.deltaTime, 0f), ForceMode.Impulse);
 		}
 
-		if (transform.position.x < -7 && jumped == true) {
+		if (transform.position.x < -5 && jumped == true) {
 			rb.AddForce (new Vector2 (-fallSpeedHorizontal, fallSpeedVertical), ForceMode.Impulse);
 		}
 
