@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	public Texture fadeOutTexture; // This texture will overlay the screen
 	public float fadeOutSpeed; // The fading speed 
 
-	public Text alarmClock; 
+	public TextMesh alarmClock; 
 	static int hour = 2; 
 	static int firstMinutes = 0; 
 	static int secondMinutes = 0; 
@@ -100,7 +100,8 @@ public class GameManager : MonoBehaviour {
 		if (FenceHit == true) {
 			SceneManager.LoadScene (0);
 			FenceHit = false; 
-			startClock = false; 
+			startClock = false;
+			enteringDream = false; 
 		}
 
 		alarmClock.text = (hour + " : " + firstMinutes + secondMinutes); 
