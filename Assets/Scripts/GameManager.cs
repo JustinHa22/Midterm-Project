@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public TextMesh alarmClock; 
 
 	static int wakeUpCount; 
-	static int hour = 6; 
+	static int hour = 3; 
 	static int firstMinutes = 0; 
 	static int secondMinutes = 0; 
 	static int framestoMinutes; 
