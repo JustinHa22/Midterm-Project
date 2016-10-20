@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
 	static int firstMinutes = 0; 
 	static int secondMinutes = 0; 
 	static int framestoMinutes; 
+	static float framestoSeconds; 
 	static bool startClock = false; 
 
 	private bool fallingAsleep = false;
@@ -50,11 +51,26 @@ public class GameManager : MonoBehaviour {
 
 	void OnGUI (){
 		if (sleepTime == true) {
+
+			framestoSeconds += Time.deltaTime; 
+
+			if (framestoSeconds > 59) {
+				framestoSeconds = 0; 
+				secondMinutes += 1;
+			}
+
+			if (secondMinutes > 9) {
+				secondMinutes = 0; 
+				firstMinutes += 1; 
+			}
+				
+
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				fallingAsleep = true;
 			}
 		}
 		if (fallingAsleep == true) {
+
 			// Fade out/in the alpha value using a direction, a speed and Time.deltaTimeto convert the operation to seconds
 			alpha += fadeDirection * fadeOutSpeed * Time.deltaTime; 
 			// Force (clamp) the number between 0 and 1 because GUI.color uses alpha values between 0 and 1
