@@ -10,9 +10,10 @@ public class GameManager : MonoBehaviour {
 
 	public Text endScreen; 
 	public TextMesh alarmClock; 
+	public Text instructions; 
 
 	static int wakeUpCount; 
-	static int hour = 3; 
+	static int hour = 4; 
 	static int firstMinutes = 0; 
 	static int secondMinutes = 0; 
 	static int framestoMinutes; 
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour {
 	private bool sleepTime = false; 
 
 	private bool enteringDream = false;
+	static bool startingDream = false; 
 
 	static bool gameStart = false; 
 	static bool gameOver = false; 
@@ -111,6 +113,15 @@ public class GameManager : MonoBehaviour {
 			alpha = Mathf.Clamp01 (alpha);
 
 			startClock = true; 
+
+			if (startingDream == false) {
+
+				instructions.text = "Press Space when the sheep touches the spring";
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					startingDream = true; 
+					instructions.text = "";
+				}
+			}
 		}
 
 		if (startClock == true) {
