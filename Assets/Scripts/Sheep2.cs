@@ -8,8 +8,8 @@ public class Sheep2 : MonoBehaviour {
 	public float fallSpeedVertical; 
 	public float fallSpeedHorizontal;
 
-
 	public Rigidbody rb;
+	public AudioSource myAudioSource;
 
 	private bool jumped = false;
 
@@ -37,6 +37,10 @@ public class Sheep2 : MonoBehaviour {
 		if (col.gameObject.tag == "Spring" && Input.GetKeyDown (KeyCode.Space)) {
 			jumped = true; 
 			rb.AddForce (new Vector2 (0f, Spring * Time.deltaTime), ForceMode.Impulse);
+
+			if (myAudioSource.isPlaying == false) {
+				myAudioSource.Play ();
+			}
 		}
 
 		if (col.gameObject.tag == "Fence") {
