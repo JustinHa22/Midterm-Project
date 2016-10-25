@@ -9,12 +9,14 @@ public class Sheep1 : MonoBehaviour {
 	public float fallSpeedHorizontal;
 
 	public Rigidbody rb;
+	public AudioSource myAudioSource;
 
 	private bool jumped = false; 
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+
 	}
 
 	// Update is called once per frame
@@ -35,9 +37,15 @@ public class Sheep1 : MonoBehaviour {
 	void OnTriggerStay(Collider col){
 		
 		if (col.gameObject.tag == "Spring" && Input.GetKeyDown (KeyCode.Space)){
+
 			jumped = true;
 			rb.AddForce (new Vector2 (0f, Spring * Time.deltaTime), ForceMode.Impulse);
+
+			if (myAudioSource.isPlaying == false) {
+				myAudioSource.Play ();
+			}
 		}
+			
 
 		if (col.gameObject.tag == "Fence") {
 			GameManager.FenceHit = true; 
